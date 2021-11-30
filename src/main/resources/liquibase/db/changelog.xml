@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd
+http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd
+http://www.liquibase.org/xml/ns/pro ">
+
+    <changeSet author="borisevich" id="2021-11-30-create-joined-table">
+        <sqlFile path="changelog/v-1.0/joinedtable.sql" encoding="UTF-8" endDelimiter=";" splitStatements="true"
+                 stripComments="true" relativeToChangelogFile="true"/>
+    </changeSet>
+    <changeSet id="1" author="borisevich">
+        <createTable tableName="billing_details">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="bd_type" type="varchar(2)"/>
+            <column name="owner" type="varchar(20)"/>
+            <column name="card_number" type="integer"/>
+            <column name="exp_month" type="varchar(9)"/>
+            <column name="exp_year" type="varchar(4)"/>
+            <column name="account" type="integer"/>
+            <column name="bank_name" type="varchar(20)"/>
+            <column name="swift" type="varchar(20)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="borisevich">
+        <createTable tableName="blogpost">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="publishing_date" type="date"/>
+            <column name="title" type="varchar(20)"/>
+            <column name="version" type="integer"/>
+            <column name="url" type="varchar(45)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="3" author="borisevich">
+        <createTable tableName="book">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="publishing_date" type="date"/>
+            <column name="title" type="varchar(20)"/>
+            <column name="version" type="integer"/>
+            <column name="pages" type="int(11)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="borisevich" id="2021-11-30-insert-superclass-table">
+        <sqlFile path="changelog/v-1.0/insert.sql" encoding="UTF-8" endDelimiter=";" splitStatements="true"
+                 stripComments="true" relativeToChangelogFile="true"/>
+    </changeSet>
+
+</databaseChangeLog>
