@@ -8,10 +8,10 @@ Home task #19
 ___
 
 ## What's done:
-1.3 simple JPA inheritance strategy(superclass,joined table,single table)
-2.simple DAo
-3.A few tests
-4.Made without testcontainers through main method with liquibase
+1.Three simple JPA inheritance strategy(superclass,joined table,single table)  
+2.Simple DAO  
+3.A few tests  
+4.Made without testcontainers through main method with liquibase  
 ___
 ## How to use?
     To run environment:  docker-compose up -d
