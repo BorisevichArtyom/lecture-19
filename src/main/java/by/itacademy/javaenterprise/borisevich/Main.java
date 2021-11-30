@@ -1,7 +1,6 @@
 package by.itacademy.javaenterprise.borisevich;
 
 
-import by.itacademy.javaenterprise.borisevich.mappedsuperclass.exception.DAOException;
 import liquibase.Contexts;
 import liquibase.Liquibase;
 import liquibase.database.Database;
@@ -15,8 +14,6 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.sql.SQLException;
 import java.util.Properties;
 
@@ -26,7 +23,8 @@ public class Main {
     public static void main(String[] args) throws  SQLException, LiquibaseException {
 
         Properties props = new Properties();
-        try (InputStream in = Files.newInputStream(Path.of("target/classes/liquibase/liquibase.properties"))) {
+
+        try (InputStream in =Main.class.getClassLoader().getResourceAsStream("liquibase/liquibase.properties")) {
             props.load(in);
         } catch (IOException e) {
             log.info("Error with reading file liquibase.properties.", e);
