@@ -3,6 +3,7 @@ package by.itacademy.javaenterprise.borisevich.singletable.dao.impl;
 
 import by.itacademy.javaenterprise.borisevich.mappedsuperclass.exception.DAOException;
 import by.itacademy.javaenterprise.borisevich.singletable.dao.CreditCardDAO;
+import by.itacademy.javaenterprise.borisevich.singletable.entity.BankAccount;
 import by.itacademy.javaenterprise.borisevich.singletable.entity.CreditCard;
 
 import javax.persistence.EntityManager;
@@ -21,7 +22,12 @@ public class CreditCardDAOImpl implements CreditCardDAO {
         try {
             em = emFactory.createEntityManager();
             em.getTransaction().begin();
-            em.persist(creditCard);
+            CreditCard creditCard2 = em.find(CreditCard.class, creditCard.getId());
+            if (creditCard2 == null) {
+                em.persist(creditCard);
+            } else {
+                em.merge(creditCard);
+            }
             em.getTransaction().commit();
         } catch (Exception e) {
             if (em != null) {

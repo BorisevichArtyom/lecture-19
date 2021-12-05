@@ -22,7 +22,12 @@ public class BankAccountDAOImpl implements BankAccountDAO {
         try {
             em = emFactory.createEntityManager();
             em.getTransaction().begin();
-            em.persist(bankAccount);
+            BankAccount bankAccount2 = em.find(BankAccount.class, bankAccount.getId());
+            if (bankAccount2 == null) {
+                em.persist(bankAccount);
+            } else {
+                em.merge(bankAccount);
+            }
             em.getTransaction().commit();
         } catch (Exception e) {
             if (em != null) {

@@ -3,6 +3,7 @@ package by.itacademy.javaenterprise.borisevich.mappedsuperclass.dao.impl;
 import by.itacademy.javaenterprise.borisevich.mappedsuperclass.dao.BlogPostDAO;
 import by.itacademy.javaenterprise.borisevich.mappedsuperclass.entity.BlogPost;
 import by.itacademy.javaenterprise.borisevich.mappedsuperclass.exception.DAOException;
+import by.itacademy.javaenterprise.borisevich.singletable.entity.CreditCard;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.EntityManager;
@@ -24,7 +25,12 @@ public class BlogPostDAOImpl implements BlogPostDAO {
             }
             em = emFactory.createEntityManager();
             em.getTransaction().begin();
-            em.persist(blogPost);
+            BlogPost blogPost2 = em.find(BlogPost.class, blogPost.getId());
+            if (blogPost2 == null) {
+                em.persist(blogPost);
+            } else {
+                em.merge(blogPost);
+            }
             em.getTransaction().commit();
         } catch (Exception e) {
             if (em != null) {

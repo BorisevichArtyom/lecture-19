@@ -1,6 +1,7 @@
 package by.itacademy.javaenterprise.borisevich.mappedsuperclass.dao.impl;
 
 import by.itacademy.javaenterprise.borisevich.mappedsuperclass.dao.BookDAO;
+import by.itacademy.javaenterprise.borisevich.mappedsuperclass.entity.BlogPost;
 import by.itacademy.javaenterprise.borisevich.mappedsuperclass.entity.Book;
 import by.itacademy.javaenterprise.borisevich.mappedsuperclass.exception.DAOException;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +26,12 @@ public class BookDAOImpl implements BookDAO {
             }
             em = emFactory.createEntityManager();
             em.getTransaction().begin();
-            em.persist(book);
+            Book book1 = em.find(Book.class, book.getId());
+            if (book1 == null) {
+                em.persist(book);
+            } else {
+                em.merge(book);
+            }
             em.getTransaction().commit();
         } catch (Exception e) {
             if (em != null) {

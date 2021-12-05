@@ -2,6 +2,7 @@ package by.itacademy.javaenterprise.borisevich.joinedtable.dao.impl;
 
 import by.itacademy.javaenterprise.borisevich.joinedtable.entity.Pet;
 import by.itacademy.javaenterprise.borisevich.joinedtable.dao.PetDAO;
+import by.itacademy.javaenterprise.borisevich.mappedsuperclass.entity.Book;
 import by.itacademy.javaenterprise.borisevich.mappedsuperclass.exception.DAOException;
 
 import javax.persistence.EntityManager;
@@ -20,7 +21,12 @@ public class PetDAOImpl implements PetDAO {
         try {
             em = emFactory.createEntityManager();
             em.getTransaction().begin();
-            em.persist(pet);
+            Pet pet1 = em.find(Pet.class, pet.getAnimalId());
+            if (pet1 == null) {
+                em.persist(pet);
+            } else {
+                em.merge(pet);
+            }
             em.getTransaction().commit();
         } catch (Exception e) {
             if (em != null) {
