@@ -26,12 +26,7 @@ public class BookDAOImpl implements BookDAO {
             }
             em = emFactory.createEntityManager();
             em.getTransaction().begin();
-            Book book1 = em.find(Book.class, book.getId());
-            if (book1 == null) {
-                em.persist(book);
-            } else {
-                em.merge(book);
-            }
+            em.persist(book);
             em.getTransaction().commit();
         } catch (Exception e) {
             if (em != null) {

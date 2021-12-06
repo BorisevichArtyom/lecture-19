@@ -22,12 +22,7 @@ public class CreditCardDAOImpl implements CreditCardDAO {
         try {
             em = emFactory.createEntityManager();
             em.getTransaction().begin();
-            CreditCard creditCard2 = em.find(CreditCard.class, creditCard.getId());
-            if (creditCard2 == null) {
-                em.persist(creditCard);
-            } else {
-                em.merge(creditCard);
-            }
+            em.persist(creditCard);
             em.getTransaction().commit();
         } catch (Exception e) {
             if (em != null) {

@@ -21,12 +21,7 @@ public class PetDAOImpl implements PetDAO {
         try {
             em = emFactory.createEntityManager();
             em.getTransaction().begin();
-            Pet pet1 = em.find(Pet.class, pet.getAnimalId());
-            if (pet1 == null) {
                 em.persist(pet);
-            } else {
-                em.merge(pet);
-            }
             em.getTransaction().commit();
         } catch (Exception e) {
             if (em != null) {

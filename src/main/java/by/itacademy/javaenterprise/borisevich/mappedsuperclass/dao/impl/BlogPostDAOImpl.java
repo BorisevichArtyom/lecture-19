@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+
 @Slf4j
 public class BlogPostDAOImpl implements BlogPostDAO {
     private final EntityManagerFactory emFactory;
@@ -25,12 +26,8 @@ public class BlogPostDAOImpl implements BlogPostDAO {
             }
             em = emFactory.createEntityManager();
             em.getTransaction().begin();
-            BlogPost blogPost2 = em.find(BlogPost.class, blogPost.getId());
-            if (blogPost2 == null) {
-                em.persist(blogPost);
-            } else {
-                em.merge(blogPost);
-            }
+            em.persist(blogPost);
+            em.merge(blogPost);
             em.getTransaction().commit();
         } catch (Exception e) {
             if (em != null) {
